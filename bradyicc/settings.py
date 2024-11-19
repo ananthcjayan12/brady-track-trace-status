@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -118,6 +119,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = f'{BASE_DIR}/static'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_URL = 'agent_login'  # Assuming 'agent_login' is the name of your login view in urls.py
 LOGOUT_REDIRECT_URL = 'agent_login'  # Redirect to login page after logout for this example
 
