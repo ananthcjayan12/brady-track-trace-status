@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h1 class="mb-4">Admin View</h1>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Description</th>
+                            <th>FCG Count</th>
+                            <th>Transit Count</th>
+                            <th>UK Inward Count</th>
+                            <th>UK Dispatch Count</th>
+                            <th>MCode Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>{{ item.item.item_code }}</td>
+                                <td>{{ item.item.description }}</td>
+                                <td>{{ item.item.transactions_fcg }}</td>
+                                <td>{{ item.item.transactions_transit }}</td>
+                                <td>{{ item.item.transactions_uk_inward }}</td>
+                                <td>{{ item.item.transactions_uk_dispatch }}</td>
+                                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ item.item.id }}">View MCodes</button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {# Modals for each item #}
+                {% for item in items %}
+                    <div class="modal fade" id="modal{{ item.item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">MCodes for {{ item.item.item_code }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>MCode</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for qr in item.qrcodes %}
+                                                <tr>
+                                                    <td>{{ qr.mcode }}</td>
+                                                    <td>{{ qr.state }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

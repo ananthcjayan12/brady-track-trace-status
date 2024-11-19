@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Track and Trace{% endblock %}</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <!-- Include jQuery -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+   <!-- Include Popper.js if Bootstrap version is 4.x -->
+   <script src="https://unpkg.com/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+ 
+   <!-- Include Bootstrap JS -->
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+  
+  
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f9;
+      padding-top: 70px;
+      /* Adjust this value based on the actual height of your navbar */
+
+    }
+
+    /* Add more custom styles as needed */
+  </style>
+</head>
+
+<body>
+
+
+  <div class="container mt-3"> <!-- added mt-3 for a little margin from the top after the navbar -->
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

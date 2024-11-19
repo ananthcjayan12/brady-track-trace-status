@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Upload MOQ CSV
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Add padding to the card */
+    .card {
+        padding: 20px;
+        max-width: 400px; /* Limit card width for readability */
+    }
+
+    /* Style the file input button */
+    .custom-file-input::-webkit-file-upload-button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .custom-file-input::before {
+        content: 'Choose File';
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+    }
+
+    .custom-file-input:hover::before {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 d-flex align-items-center">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Upload MOQ CSV</h1>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Choose a CSV File:</label>
+                            <div class="input-group">
+                                <label class="input-group-btn">
+                                    <span class="btn btn-primary">
+                                        Browse&hellip; <input type="file" id="file" name="file" class="custom-file-input" style="display: none;" accept=".csv" required>
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Upload CSV</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Display selected file name in the input field
+    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+        const fileName = e.target.files[0].name;
+        document.querySelector('.form-control').value = fileName;
+    });
+</script>
+{% endblock %}

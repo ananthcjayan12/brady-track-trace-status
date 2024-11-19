@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Scan QR Code{% endblock %}
+
+{% block content %}
+<style>
+    /* Use CSS margin to center the card */
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="container-fluid mt-5">
+    {% if messages %}
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="row justify-content-center">
+        <div class="col-md-4 d-flex align-items-center">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Scan QR Code</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="qr_string" class="form-label">Enter or Scan the QR Code:</label>
+                            <input type="text" class="form-control" id="qr_string" name="qr_string" required
+                                placeholder="Enter the QR value" onkeyup="fetchItemTitle();">
+                        </div>
+
+                        <div class="text-center mt-4" id="item-display">
+                            <!-- Item title will be populated here by JavaScript -->
+                        </div>
+                        <!-- ... rest of your template ... -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function fetchItemTitle() {
+        var qrValue = $("#qr_string").val();
+        if (qrValue.length > 5) { // fetch if the qr_value has significant length, you can adjust this
+            $.ajax({
+                url: '{% url "get_item_by_qr" %}',
+                data: {
+                    'qr_string': qrValue
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        $("#item-display").html("<h3>Scanned Item: " + data.item_title + "</h3>");
+                    } else {
+                        $("#item-display").html("<h3 class='text-danger'>Item not found</h3>");
+                    }
+                }
+            });
+        }
+    }
+</script>
+{% endblock %}

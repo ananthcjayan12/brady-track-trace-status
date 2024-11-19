@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Screen
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Use CSS margin to center the card */
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Add a class for highlighting the rows in red */
+    .below-moq {
+        color: red;
+    }
+
+    .scrollable-table {
+        overflow-x: auto;
+    }
+    #admin-container {
+    grid-template-columns: 1fr !important;
+}
+#admin-container .card:hover {
+    transform: none;
+}
+#mcodesList {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;  /* Enable vertical scrolling */
+}
+
+</style>
+
+
+<div class="container mt-4" id="admin-container">
+    <div class="card text-center">
+        <div class="card-body">
+            <h1 class="mb-4">Admin Screen</h1>
+            <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search by item code..."
+                style="margin-bottom: 10px;">
+                <div class="scrollable-table">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Item Code</th>
+                        <th>Description</th>
+                        <th>MOQ</th>
+                        <th>FCG Count</th>
+                        <th>Transit Count</th>
+                        <th>UK FG Count</th>
+                        <th>UK Dispatch Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td ><a href="#" class="item-link" data-itemcode="{{ item.item_code }}">{{ item.item_code }}</a></td>
+                        <td class="{% if item.count_fcg < item.moq %}"style="color: red;"{% endif %}">{{ item.description }}</td>
+                        <td class="{% if item.count_fcg < item.moq %}"style="color: red;"{% endif %}">{{ item.moq }}</td>
+                        <td class="{% if item.count_fcg < item.moq %}"style="color: red;"{% endif %}">{{ item.count_fcg }}</td>
+                        <td class="{% if item.count_fcg < item.moq %}"style="color: red;"{% endif %}">{{ item.count_transit }}</td>
+                        <td class="{% if item.count_fcg < item.moq %}"style="color: red;"{% endif %}">{{ item.count_uk_inward }}</td>
+                        <td class="{% if item.count_fcg < item.moq %}"style="color: red;"{% endif %}">{{ item.count_uk_dispatch }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Item Code Modal -->
+<div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="itemModalLabel">MCodes for Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="mcodesList">
+                <!-- Mcodes will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on('click', '.item-link', function (e) {
+        e.preventDefault();
+        let itemCode = $(this).data('itemcode');
+
+        $.ajax({
+            url: `/get_mcodes/${itemCode}/`,
+            method: 'GET',
+            success: function (data) {
+                let mcodes_status = data.mcodes_status;
+                $('#mcodesList').empty();  // Clear previous mcodes
+                mcodes_status.forEach(function (entry) {
+                    $('#mcodesList').append('<p>' + entry.mcode + ' - <span class="text-muted">' + entry.status + '</span></p>');  // Add each mcode and its status to modal
+                });
+                $('#itemModal').modal('show');  // Show the modal
+            }
+
+        });
+    });
+    $(document).on('click', '.close', function () {
+        $('#itemModal').modal('hide');
+    });
+    function searchFunction() {
+        var input, filter, table, tr, td, i, j;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector(".table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+            tr[i].style.display = "none";
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+
+{% endblock %}

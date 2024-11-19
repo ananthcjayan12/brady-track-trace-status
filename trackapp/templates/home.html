@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+<section>
+    <div class="container">
+        
+        <!-- Each Card begins here -->
+
+        <!-- Generate QR Code Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                Generate QR Code
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Generate a QR code</p>
+                <a href="{% url 'generate_qr' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+        </div>
+        
+        <!-- Upload CSV Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                Upload CSV
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Upload CSV for Item code descriptions</p>
+                <a href="{% url 'upload_csv' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+        </div>
+
+        <!-- Scan FG Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                Scan FG
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Scan QR code for FG</p>
+                <a href="{% url 'scan_fcg' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+        </div>
+
+        <!-- Export India Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                Export India
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Scan the QR code for exporting from India</p>
+                <a href="{% url 'export_screen' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+        </div>
+
+        <!-- UK Inwards Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                UK FG
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Scan the QR code for Import to UK</p>
+                <a href="{% url 'ukimport' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+        </div>
+
+        <!-- UK Dispatch Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                UK Dispatch
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Scan the QR code for export to UK</p>
+                <a href="{% url 'ukexport' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+        </div>
+
+        <!-- Admin Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                Admin
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">View Dashboard</p>
+                <a href="{% url 'admin_screen' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+        </div>
+
+        <!-- Upload MOQ Card -->
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                Upload MOQ
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Upload Minimum Quantity</p>
+                <a href="{% url 'upload_moq' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+     
+        </div>
+
+        <div class="card text-center" style="border-color: #4B49AC; box-shadow: 0 4px 8px rgba(75, 73, 172, 0.1);">
+            <div class="card-header" style="background-color: #4B49AC; color: white;">
+                Download
+            </div>
+            <div class="card-body" style="background-color: white;">
+                <p class="card-text" style="color: #98BDFF;">Download Report</p>
+                <a href="{% url 'download_excel' %}" class="btn" style="background-color: #F3797E; color: white;">Go</a>
+            </div>
+     
+        </div>
+
+   
+        <!-- Each Card ends here -->
+
+</section>
+</div>
+
+{% endblock %}
